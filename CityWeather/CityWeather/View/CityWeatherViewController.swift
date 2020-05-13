@@ -47,7 +47,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfCells
+        return cities.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -74,7 +74,7 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        if viewModel.numberOfCells > indexPath.row + 1 {
+        if cities.count > indexPath.row + 1 {
             let nextIndex = indexPath.row + 1
             viewModel.configureCellViewModel(city: cities[nextIndex])
         }

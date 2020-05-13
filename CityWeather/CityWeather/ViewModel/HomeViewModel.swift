@@ -35,7 +35,7 @@ class HomeViewModel {
         
         if let citiesArray = input?.components(separatedBy: ",") {
             cities = citiesArray.map {
-                $0.components(separatedBy: .whitespaces).joined().trimmingCharacters(in: .whitespacesAndNewlines)
+                $0.components(separatedBy: .whitespaces).joined()
             }.filter { $0.count > 0 }
             
             if cities.count > 2 && cities.count < 8 {
