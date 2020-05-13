@@ -58,13 +58,15 @@ class CityWeatherViewModel {
     private func createCellViewModel(_ weather: Weather) -> CityWeatherCellModel {
         
         let maxTemp = String(format:"%f",  weather.main.temp_max )
-        let minTemp = String(format:"%f",  weather.main.temp_min) 
+        let minTemp = String(format:"%f",  weather.main.temp_min)
+        let wind = weather.wind.speed
+        let windFormatted = wind.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", wind) : String(format: "%.1f", wind)
            
         return CityWeatherCellModel(name: weather.name ,
                                     weatherDescription: weather.weather[0].type,
                                     minTem: minTemp,
                                     maxTemp: maxTemp,
-                                    windSpeed: "\(weather.wind.speed)",
+                                    windSpeed: windFormatted,
                                     isFetching: false,
                                     isValid: true)
      }
