@@ -1,6 +1,5 @@
 # iOS City Weather App
 
-<div style="width: 1000px; height 600px;"><img src="Screenshoot/Screenshoot-1.png" width="30%" height="30%" align="right"></div>
 
 
 ## Overview
