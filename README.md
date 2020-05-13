@@ -30,8 +30,8 @@ Once access is given, you can see 5 days weather forecast of current city.
 
 ### Run Test Cases
 
-- Test cases
-- Product -> Test
+- Test cases are written inside CityWeatherTests folder
+- Product -> Test 
 
 
 

@@ -1,0 +1,6 @@
+module Pods_CityWeather {
+  umbrella header "Pods-CityWeather-umbrella.h"
+
+  export *
+  module * { export * }
+}
