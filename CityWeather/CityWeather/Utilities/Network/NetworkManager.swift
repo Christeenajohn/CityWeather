@@ -16,7 +16,7 @@ enum CWError: Error {
 }
 
 struct CWConstants {
-    static let appID = "e72ca729af228beabd5d20e3b7749713"
+    static let appID = "5de2e9740f3737f139f9a6b147398798"
     static let rootURL = "https://api.openweathermap.org/data/2.5/"
 }
 

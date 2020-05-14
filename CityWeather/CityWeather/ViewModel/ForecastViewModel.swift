@@ -73,6 +73,7 @@ class ForecastViewModel: NSObject {
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
+            locationManager.distanceFilter = 1000.0;
             locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
             locationManager.startUpdatingLocation()
         }
@@ -83,8 +84,11 @@ class ForecastViewModel: NSObject {
     }
     
     private func updateForecast() {
-        isFetching = true
+        guard isFetching == false else {
+            return
+        }
         
+        isFetching = true
         getWeatherForecast { [weak self] (result) in
             self?.isFetching = false
             

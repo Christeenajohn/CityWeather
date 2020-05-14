@@ -528,7 +528,7 @@
                             <constraint firstItem="4xM-rN-ZuF" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="z9b-JK-BCt"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Forecast" selectedImage="cloud.moon.rain.fill" catalog="system" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Forecast" image="cloud.moon.rain" catalog="system" selectedImage="cloud.moon.rain.fill" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="cityLabel" destination="4xM-rN-ZuF" id="2VK-XC-NXg"/>
                         <outlet property="forecastTable" destination="3FA-BJ-Xei" id="q4I-fh-g4I"/>
@@ -562,7 +562,8 @@
         <scene sceneID="ZVb-U2-hGf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S2j-Ue-kUa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" selectedImage="magnifyingglass" catalog="system" id="acW-dT-cKf">
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="acW-dT-cKf">
+                        <color key="badgeColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -583,6 +584,7 @@
     <resources>
         <image name="alarm" catalog="system" width="62" height="64"/>
         <image name="app-bg-image" width="308.5" height="469"/>
+        <image name="cloud.moon.rain" catalog="system" width="64" height="60"/>
         <image name="cloud.moon.rain.fill" catalog="system" width="64" height="58"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="sun.max.fill" catalog="system" width="64" height="62"/>
