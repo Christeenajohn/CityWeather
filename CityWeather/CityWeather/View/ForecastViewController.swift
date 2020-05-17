@@ -18,7 +18,7 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var forecastTable: UITableView!
     @IBOutlet weak var locationErrorLabel: UILabel!
-      @IBOutlet weak var locationErrorHolder: UIView!
+    @IBOutlet weak var locationErrorHolder: UIView!
     
     private var selectedSection = 0
     private var viewModel: ForecastViewModel!
@@ -29,6 +29,14 @@ class ForecastViewController: UIViewController {
         
         forecastTable.rowHeight = UITableView.automaticDimension
         forecastTable.estimatedRowHeight = Constants.cellHeight
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if locationErrorHolder.isHidden == false {
+            
+        }
     }
     
     private func configureAndBindViewModel() {
@@ -48,6 +56,13 @@ class ForecastViewController: UIViewController {
                 self?.loader.startAnimating()
             } else {
                 self?.loader.stopAnimating()
+            }
+        }
+        
+        viewModel.showAlertMessage = {[weak self] (message) in
+            DispatchQueue.main.async {
+                self?.locationErrorLabel.text = message
+                self?.locationErrorHolder.isHidden = false
             }
         }
         

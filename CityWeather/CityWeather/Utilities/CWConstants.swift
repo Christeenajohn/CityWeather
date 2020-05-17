@@ -34,4 +34,5 @@ struct CWErrorMessages {
     static let noInternerError          = "The internet connection appears to be offline"
     static let invalidCity              = "Please provide valid input. Valid input can contain 3 to 7 city names separated by comma."
     static let locationPermissionError  = "To show weather forecast for your city please enable location access for app from settings."
+    static let cityNotFound             = "City not found."
 }

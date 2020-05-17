@@ -26,8 +26,13 @@ class WeatherDetailsCell: UICollectionViewCell {
        When isValid = false, no city found error from response => show error
        When we have valid data, show the data */
     private func updateVisibilty(_ model: CityWeatherCellModel) {
+        if model.isValid == false {
+            noDataLabel.text = (Reachability.shared.isConnectedToInternet() == false) ? CWErrorMessages.noInternerError : CWErrorMessages.cityNotFound
+        }
+        
         noDataLabel.isHidden = model.isValid ?? true
         dataHolder.isHidden = !(model.isValid ?? false)
+
         model.isFetching ? loader.startAnimating() : loader.stopAnimating()
     }
     

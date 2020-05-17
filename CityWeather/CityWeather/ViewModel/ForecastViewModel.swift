@@ -25,6 +25,7 @@ class ForecastViewModel: NSObject {
     var reloadClosure: (() -> ())?
     var updateCurrentLocation: ( (String?)->() )?
     var updateLoadingStatus: ( (Bool)->() )?
+    var showAlertMessage: ((String) -> ())?
     var updateLocationAccessStatus: ((Bool?)->())?
     var currentCordinates : CLLocationCoordinate2D? {
         didSet {
@@ -43,6 +44,12 @@ class ForecastViewModel: NSObject {
     private var isFetching: Bool = false {
         didSet {
             updateLoadingStatus?(isFetching)
+        }
+    }
+    
+    private var alertMessage: String? {
+        didSet {
+            showAlertMessage?(alertMessage ?? "")
         }
     }
     
@@ -98,7 +105,7 @@ class ForecastViewModel: NSObject {
                     self?.updateDataSourceWithForecast(forecast)
                 
                 case .failure(let error):
-                    print(error)
+                    self?.alertMessage = error.errorDescription
             }
         }
     }
