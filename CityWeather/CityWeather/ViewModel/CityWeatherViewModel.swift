@@ -27,28 +27,27 @@ class CityWeatherViewModel {
             self.reloadTableClosure?()
         }
     }
-
-    private var weatherData:[String: Weather] = [:]
-        
     
-    // MARK: Binding methods
+    private var weatherData:[String: Weather] = [:]
+    
+    
+    // MARK: Binding closure methods
     var reloadTableClosure: (()->())?
     
     
     // MARK: Class defenition
     private func fetchCurrentWeatherForCity(_ city: String) {
-        
         getWeather(city: city) { [weak self, city] (result) in
-              switch result {
-              case .success(let weather):
-                self?.weatherData[city] = weather
-                self?.updateCellModels(weather, city: city)
-                  
-              case .failure(_):
-                self?.cellViewModels[city] = CityWeatherCellModel(isFetching: false, isValid: false)
-              }
-          }
-      }
+            switch result {
+                case .success(let weather):
+                    self?.weatherData[city] = weather
+                    self?.updateCellModels(weather, city: city)
+                
+                case .failure(_):
+                    self?.cellViewModels[city] = CityWeatherCellModel(isFetching: false, isValid: false)
+            }
+        }
+    }
     
     private func updateCellModels(_ weather: Weather, city: String)  {
         cityWeather[city] = weather
@@ -57,11 +56,11 @@ class CityWeatherViewModel {
     
     private func createCellViewModel(_ weather: Weather) -> CityWeatherCellModel {
         
-        let maxTemp = String(format:"%f",  weather.main.temp_max )
-        let minTemp = String(format:"%f",  weather.main.temp_min)
+        let maxTemp = convertTemp(temp: weather.main.tempMax, to: .celsius)
+        let minTemp = convertTemp(temp: weather.main.tempMin, to: .celsius)
         let wind = weather.wind.speed
         let windFormatted = wind.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", wind) : String(format: "%.1f", wind)
-           
+        
         return CityWeatherCellModel(name: weather.name ,
                                     weatherDescription: weather.weather[0].type,
                                     minTem: minTemp,
@@ -69,8 +68,8 @@ class CityWeatherViewModel {
                                     windSpeed: windFormatted,
                                     isFetching: false,
                                     isValid: true)
-     }
-
+    }
+    
     
     // MARK: Public methods
     var numberOfCells: Int {
@@ -92,21 +91,22 @@ class CityWeatherViewModel {
         }
         return model
     }
-        
+    
     
     // MARK: Network calls
     func getWeather(city: String,
                     completion: @escaping (Result<Weather, CWError>) -> Void) {
         // TODO - check caching for 10 min
-//        if let weather = cityWeather[city] {
-//            completion(.success(weather))
-//        } else {
-            let params = [Constants.appID: CWConstants.appID,
-                          Constants.query: city]
-            NetworkManager.request(route: WeatherAPIRouter.getWeather(params:params),
-                                   completion: completion)
-//        }        
-      }
+        //        if let weather = cityWeather[city] {
+        //            completion(.success(weather))
+        //        } else {
+        let params = [Constants.appID: APIConstants.appID,
+                      Constants.query: city]
+        NetworkManager.request(route: WeatherAPIRouter.getWeather(params:params),
+                               completion: completion)
+        //        }
+    }
     
     
 }
+

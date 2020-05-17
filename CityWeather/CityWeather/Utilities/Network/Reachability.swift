@@ -11,7 +11,7 @@ import Alamofire
 
 
 final class Reachability: NSObject {
-   
+    
     static let shared = Reachability()
     let reachabilityManager = NetworkReachabilityManager()
     
@@ -25,12 +25,12 @@ final class Reachability: NSObject {
     func startNetworkMonitoring() {
         self.reachabilityManager?.startListening { status in
             switch status {
-            case .notReachable:
-                print("No internet connection")
-            case .reachable:
-                print("Internet connected")
-            case .unknown:
-                print("Unknown internet connection")
+                case .notReachable:
+                    print("No internet connection")
+                case .reachable:
+                    print("Internet connected")
+                case .unknown:
+                    print("Unknown internet connection")
             }
         }
     }
@@ -39,3 +39,4 @@ final class Reachability: NSObject {
         self.reachabilityManager?.stopListening()
     }
 }
+

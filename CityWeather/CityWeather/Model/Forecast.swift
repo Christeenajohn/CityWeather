@@ -14,7 +14,7 @@ struct Forecast: Codable {
 }
 
 struct ForecastData: Codable  {
-    var dt_txt: String
+    var dtTxt: String
     var wind: WindData
     var weather: [WeatherData]
     var main: MainData

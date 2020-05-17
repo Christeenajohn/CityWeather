@@ -14,11 +14,11 @@ class CityWeatherViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     
     private var viewModel: CityWeatherViewModel!
-    var cities : [String]!
+    var cities = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewModel()
+        configureAndBindViewModel()
         pageControl.numberOfPages = cities.count
     }
     
@@ -27,20 +27,21 @@ class CityWeatherViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
-    private func configureViewModel() {
+    private func configureAndBindViewModel() {
+        guard cities.count > 0 else {
+            return
+        }
+        
         viewModel = CityWeatherViewModel()
         viewModel.cities = cities
         viewModel.configureCellViewModel(city: cities[0])
         
         viewModel.reloadTableClosure = { [weak self] in
-            
             if let indexPaths = self?.collectionView.indexPathsForVisibleItems {
                self?.collectionView.reloadItems(at: indexPaths)
             }
         }
     }
-
-
 }
 
 extension CityWeatherViewController: UICollectionViewDataSource {
@@ -60,20 +61,18 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         }
         return cell
     }
-    
-
 }
 
 extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-                
-        return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
+        return CGSize(width: collectionView.frame.size.width,
+                      height: collectionView.frame.size.height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if cities.count > indexPath.row + 1 {
             let nextIndex = indexPath.row + 1
             viewModel.configureCellViewModel(city: cities[nextIndex])

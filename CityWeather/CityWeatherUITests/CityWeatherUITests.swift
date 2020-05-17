@@ -11,33 +11,74 @@ import XCTest
 class CityWeatherUITests: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
+    func testInvalidInput() {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
+        app.textViews.element.tap()
+    
+        app.buttons["Serach"].tap()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssert(app.alerts["Please provide valid input. Valid input can contain 3 to 7 city names separated by comma."].exists)
     }
+    
 
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
+    func testValidInputNavigation() {
+        let app = XCUIApplication()
+        app.launch()
+        let input = app.textViews.element
+        input.tap()
+        input.typeText("Dubai, Paris, Lo")
+        
+        app.buttons["Serach"].tap()
+        
+        XCTAssert(app.collectionViews.element.exists)
     }
+    
+    
+    func testResponseData() {
+
+        let app = XCUIApplication()
+        app.launch()
+        let input = app.textViews.element
+        input.tap()
+        input.typeText("Dubai, Paris, Lo")
+        
+        app.buttons["Serach"].tap()
+        
+        let label = app.staticTexts["Dubai"]
+        let exists = NSPredicate(format: "exists == 1")
+        
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testInvalidCity() {
+        
+        let app = XCUIApplication()
+        app.launch()
+        let input = app.textViews.element
+        input.tap()
+        input.typeText("Dubai, Lo, Paris")
+        
+        app.buttons["Serach"].tap()
+        
+        app.collectionViews.element.swipeLeft()
+                
+        let label = app.staticTexts["City not found"]
+        let exists = NSPredicate(format: "exists == 1")
+        
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+
+
+
 }

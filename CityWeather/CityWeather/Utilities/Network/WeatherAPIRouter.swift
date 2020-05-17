@@ -9,15 +9,14 @@
 import Foundation
 import Alamofire
 
-struct WeatherAPIs {
-    static let currentWeather = "weather"
-    static let forecast = "forecast"
-}
-
 enum WeatherAPIRouter: APIRouter {
+    private struct WeatherAPIs {
+        static let currentWeather = "weather"
+        static let forecast = "forecast"
+    }
+    
     case getWeather(params: [String: String])
     case getForecast(params: [String: Any])
-    
     
     var path: String {
         switch self {
@@ -29,7 +28,7 @@ enum WeatherAPIRouter: APIRouter {
     }
     
     var requestURL: URL {
-       return URL(string:CWConstants.rootURL + path)!
+       return URL(string:APIConstants.rootURL + path)!
     }
     
     var encoding: ParameterEncoding {

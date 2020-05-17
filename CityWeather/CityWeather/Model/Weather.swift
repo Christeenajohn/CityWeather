@@ -9,8 +9,8 @@
 import Foundation
 
 struct Weather: Codable {
-     var weather: [WeatherData]
-     var main: MainData
+    var weather: [WeatherData]
+    var main: MainData
     var wind: WindData
     var name: String
 }
@@ -29,10 +29,11 @@ struct WeatherData: Codable  {
 }
 
 struct MainData: Codable {
-    var temp_min: Double
-    var temp_max: Double
+    var tempMin: Double
+    var tempMax: Double
 }
 
 struct WindData: Codable {
     var speed: Double
 }
+

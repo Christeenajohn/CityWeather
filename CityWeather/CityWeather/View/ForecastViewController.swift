@@ -9,25 +9,33 @@
 import Foundation
 import UIKit
 
-
 class ForecastViewController: UIViewController {
-    
-    private var viewModel: ForecastViewModel!
+    private struct Constants {
+        static let cellHeight: CGFloat = 70.0
+    }
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var forecastTable: UITableView!
+    @IBOutlet weak var locationErrorLabel: UILabel!
+      @IBOutlet weak var locationErrorHolder: UIView!
+    
     private var selectedSection = 0
+    private var viewModel: ForecastViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewModel()
+        configureAndBindViewModel()
+        
+        forecastTable.rowHeight = UITableView.automaticDimension
+        forecastTable.estimatedRowHeight = Constants.cellHeight
     }
     
-    private func configureViewModel() {
+    private func configureAndBindViewModel() {
         viewModel = ForecastViewModel()
         
         viewModel.reloadClosure = { [weak self] in
+            self?.locationErrorHolder.isHidden = true
             self?.forecastTable.reloadData()
         }
         
@@ -45,11 +53,13 @@ class ForecastViewController: UIViewController {
         
         viewModel.updateLocationAccessStatus = { [weak self] (isAccessible) in
             if let self = self, isAccessible == false {
-                showAlert(ErrorMessages.locationPermissionError, presenter: self)
+                showAlert(CWErrorMessages.locationPermissionError, presenter: self)
+                
+                self.locationErrorLabel.text = CWErrorMessages.locationPermissionError
+                self.locationErrorHolder.isHidden = false
             }
         }
     }
-
 }
 
 extension ForecastViewController: UITableViewDataSource {
@@ -66,45 +76,34 @@ extension ForecastViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.kForecastDateCell) as! ForecaseDateCell
-            cell.dateLabel.text = viewModel.dates[indexPath.section].getDate()?.getDateDisplayString()
-            
-            return cell
-            
-        } else {
-            if let cellVM = viewModel.getCellViewModelFor(row: indexPath.row-1,
-                                    date: viewModel.dates[indexPath.section]) {
-                
+        switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.kForecastDateCell) as! ForecaseDateCell
+                cell.dateLabel.text = viewModel.dates[indexPath.section].getDate()?.getDateDisplayString()
+                return cell
+            default:
+                guard let cellVM = viewModel
+                    .getCellViewModelFor(row: indexPath.row-1,
+                                         date: viewModel.dates[indexPath.section]) else {
+                                            return UITableViewCell()
+                }
                 let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.kForeCastCell) as! ForecastCell
                 cell.updateDataWith(cellVM)
                 return cell
-            }
-            
-            return UITableViewCell()
         }
     }
-    
 }
 
 
 extension ForecastViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView,
-                   heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70.0
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0
-    }
-    
+
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         selectedSection = indexPath.section
         tableView.reloadData()
     }
 }
+
+
 
 

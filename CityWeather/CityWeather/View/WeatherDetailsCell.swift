@@ -20,30 +20,28 @@ class WeatherDetailsCell: UICollectionViewCell {
     @IBOutlet weak var noDataLabel: UILabel!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
+    // MARK: Private Methods
+    /* 3 states for cells
+       When isFetching = true, show loading experience
+       When isValid = false, no city found error from response => show error
+       When we have valid data, show the data */
     private func updateVisibilty(_ model: CityWeatherCellModel) {
         noDataLabel.isHidden = model.isValid ?? true
         dataHolder.isHidden = !(model.isValid ?? false)
         model.isFetching ? loader.startAnimating() : loader.stopAnimating()
     }
     
-    
+    // MARK: Public Methods
+    //
     func updateCellWithModel(_ model: CityWeatherCellModel)  {
         updateVisibilty(model)
         
         if model.isValid == true {
             nameField.text = model.name
             descriptionField.text = model.weatherDescription.capitalized
-            
-            if let maxTemperature = Double(model.maxTemp),
-                let minTemperature = Double(model.minTem) {
-                minTempField.text = convertTemp(temp:minTemperature,
-                                                to: UnitTemperature.celsius)
-                maxTempField.text = convertTemp(temp: maxTemperature,
-                                                to: UnitTemperature.celsius)
-            }
-
             windField.text = model.windSpeed
+            maxTempField.text = model.maxTemp
+            minTempField.text = model.minTem
         }
-
     }
 }

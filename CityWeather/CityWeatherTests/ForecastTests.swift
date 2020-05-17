@@ -27,7 +27,8 @@ class ForecastTests: XCTestCase {
         let expectation = self.expectation(description: "TestCity")
         
         sut.updateCurrentLocation = { (city) in
-            if let city = city, city.contains(", AE") {
+            if let city = city,
+                city.contains(", AE") || city.contains(", US") {
                 isAE = true
             }
             expectation.fulfill()

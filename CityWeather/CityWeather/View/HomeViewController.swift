@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureViewModel()
+        configureAndBindViewModel()
         inputField.delegate = self
         hideKeyboardWhenTappedAround()
     }
@@ -27,8 +27,8 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    //MARK: Private methods
-    private func configureViewModel() {
+    // MARK: Private methods
+    private func configureAndBindViewModel() {
         viewModel = HomeViewModel()
         
         viewModel.updateUIForValidInput = { [unowned self] (isValid) in
@@ -46,26 +46,19 @@ class HomeViewController: UIViewController {
         view.endEditing(true)
     }
     
-    
-    //MARK: Action methods
+    // MARK: Action methods
     @IBAction func didTapFindWeather(_ sender: Any) {
-        
         if viewModel.canFindWeather == true {
             let cityWeatherVC = storyboard?.instantiateViewController(identifier: StoryBoardID.kCityWeatherController) as! CityWeatherViewController
             cityWeatherVC.cities = viewModel.cities
             navigationController?.pushViewController(cityWeatherVC, animated: true)
-            
         } else {
-            showAlert(ErrorMessages.invalidCity, presenter: self)
+            showAlert(CWErrorMessages.invalidCity, presenter: self)
         }
     }
 }
 
 extension HomeViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        
-    }
-    
     func textViewDidEndEditing(_ textView: UITextView) {
         viewModel.input = textView.text
     }

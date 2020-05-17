@@ -22,13 +22,8 @@ struct CityWeatherCellModel {
 extension CityWeatherCellModel {
     
     init(isFetching: Bool, isValid: Bool?) {
-        weatherDescription = ""
-        minTem = ""
-        maxTemp = ""
-        windSpeed = ""
-        name = " "
-        
-        self.isFetching = isFetching
-        self.isValid = isValid
+        self.init(name: "", weatherDescription: "",
+                             minTem: "", maxTemp: "", windSpeed: "",
+                             isFetching: isFetching, isValid: isValid)
     }
 }

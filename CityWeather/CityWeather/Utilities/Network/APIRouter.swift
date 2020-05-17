@@ -27,7 +27,7 @@ protocol APIRouter: URLRequestConvertible {
 extension APIRouter {
     
     var contentType: String {
-        return "application/json"
+        return APIConstants.contentTypeJSON
     }
     
     // MARK: - URLRequestConvertible
@@ -47,20 +47,19 @@ extension APIRouter {
         if let parameters = parameters {
             do {
                 switch method {
-                case .get:
-                    return try encoding.encode(urlRequest, with: parameters)
-                    
-                default:
-                    urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-                    urlRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+                    case .get:
+                        return try encoding.encode(urlRequest, with: parameters)
+                    default:
+                        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+                        urlRequest.setValue(contentType, forHTTPHeaderField: APIConstants.contentTypeKey)
                 }
                 
             } catch {
                 throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
             }
         }
-        
         return urlRequest
     }
 }
+
 

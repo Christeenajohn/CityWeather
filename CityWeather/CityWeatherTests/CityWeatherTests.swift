@@ -21,6 +21,19 @@ class CityWeatherTests: XCTestCase {
         sut.cities = ["Dubai"]
         XCTAssertEqual(sut.numberOfCells, 1)
     }
+    
+    func testWeatherFetchingCellState() {
+        sut.cities = ["Dubai"]
+        let expectation = self.expectation(description: "Weather fetching cellState")
+        sut.configureCellViewModel(city: "Dubai")
+        
+        if self.sut.getCellViewForCity("Dubai").isFetching == true {
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+        XCTAssertEqual(sut.getCellViewForCity("Dubai").isValid, nil)
+    }
 
     func testSuccessfulWeatherFetching() {
         sut.cities = ["Dubai"]
