@@ -109,7 +109,7 @@ class ForecastViewModel: NSObject {
         var tempDataSource = [String: [ForecastData]]()
         
         for item in forecast.list {
-            if let date = item.dtTxt.components(separatedBy: " ").first {
+            if let date = item.dtTxt.getDateTime()?.getDateString() {
                 var hourlyData: [ForecastData] = tempDataSource[date] ?? []
                 hourlyData.append(item)
                 tempDataSource[date] = hourlyData

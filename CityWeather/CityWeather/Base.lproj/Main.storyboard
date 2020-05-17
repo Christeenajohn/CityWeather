@@ -380,7 +380,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Condition" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxV-AR-MK0">
-                                        <rect key="frame" x="109" y="16" width="66" height="18"/>
+                                        <rect key="frame" x="86" y="16" width="66" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" name="bgColor"/>
                                         <nil key="highlightedColor"/>
@@ -392,7 +392,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Dl2-sk-Qch" secondAttribute="trailing" constant="16" id="CV4-9a-2o8"/>
                                     <constraint firstItem="Dl2-sk-Qch" firstAttribute="centerY" secondItem="Rp3-HR-M8x" secondAttribute="centerY" id="G3D-zj-emo"/>
                                     <constraint firstItem="qlc-xE-VJj" firstAttribute="centerY" secondItem="Rp3-HR-M8x" secondAttribute="centerY" id="Oim-xP-jCB"/>
-                                    <constraint firstItem="CxV-AR-MK0" firstAttribute="leading" secondItem="GZz-EK-t0X" secondAttribute="trailing" constant="68" id="XZy-tA-r6g"/>
+                                    <constraint firstItem="CxV-AR-MK0" firstAttribute="leading" secondItem="GZz-EK-t0X" secondAttribute="trailing" constant="45" id="XZy-tA-r6g"/>
                                     <constraint firstItem="GZz-EK-t0X" firstAttribute="centerY" secondItem="Rp3-HR-M8x" secondAttribute="centerY" id="ZN4-tc-N4g"/>
                                     <constraint firstItem="Dl2-sk-Qch" firstAttribute="leading" secondItem="qlc-xE-VJj" secondAttribute="trailing" constant="25" id="dcB-gM-B9x"/>
                                     <constraint firstItem="oIN-Yc-eCT" firstAttribute="centerY" secondItem="Rp3-HR-M8x" secondAttribute="centerY" id="fIZ-L7-aUW"/>

@@ -35,6 +35,13 @@ extension String {
         return dateFormatter.date(from: self)
     }
     
+    func getDateTime() -> Date? {
+        //2020-05-13 12:00:00
+        dateFormatter.dateFormat = Date.dateTimeFormat
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        return dateFormatter.date(from: self)
+    }
+    
     func getDateFromDisplayString() -> Date? {
         dateFormatter.dateFormat = Date.weekDayFormat
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
